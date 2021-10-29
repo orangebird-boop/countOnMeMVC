@@ -7,10 +7,7 @@
 //
 
 import Foundation
-protocol CalculatorBrainDelegate: AnyObject {
-    func calculusHasCompleted(result: String)
-    func calculusFailed(errorMessage: String)
-}
+
 class CalculatorBrain {
 
     enum CalculatorBrainError: Error, Equatable {
