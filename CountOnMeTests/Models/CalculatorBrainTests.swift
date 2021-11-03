@@ -126,7 +126,7 @@ class SimpleCalcTests: XCTestCase {
         }
     }
 
-    func testShouldDivideByZero() {
+    func testShouldReturnDivideByZero() {
         calculatorBrain.elements = ["8", "÷", "0"]
         let result = calculatorBrain.executeCalculus()
         switch result {
@@ -135,5 +135,28 @@ class SimpleCalcTests: XCTestCase {
         case .failure(let error):
             XCTAssertEqual(error, .divideByZero)
         }
+    }
+
+    func testCanAddOperator() {
+        calculatorBrain.elements = ["1", "+", "1"]
+        XCTAssertTrue(calculatorBrain.canAddOperator)
+    }
+
+    func testShouldErrorMessageReturnNotEnoughElements() {
+        calculatorBrain.elements = ["1"]
+        let message = CalculatorBrain.CalculatorBrainError.message(.notEnoughElementInExpression)
+        XCTAssertEqual(message(), "Il n'y a pas assez d'élement dans le calcul")
+        }
+
+    func testShouldReturnErrorMessageIvalidExpression() {
+        calculatorBrain.elements = ["3", "*", "a"]
+        let message = CalculatorBrain.CalculatorBrainError.message(.invalidExpression)
+        XCTAssertEqual(message(), "Cette expression est invalide")
+    }
+
+    func testShouldReturnErrorMessageDivisionByZero() {
+        calculatorBrain.elements = ["3", "÷", "0"]
+        let message = CalculatorBrain.CalculatorBrainError.message(.divideByZero)
+        XCTAssertEqual(message(), "Il n'est pas possible de diviser par zéro")
     }
 }
