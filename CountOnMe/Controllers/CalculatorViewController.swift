@@ -22,16 +22,12 @@ class CalculatorViewController: UIViewController {
         return textView.text.firstIndex(of: "=") != nil
     }
 
-    var canAddOperator: Bool {
-       return elements.last != "+" && elements.last != "-" && elements.last != "÷" && elements.last != "x"
-    }
-
     func setCalculusElements(elements: [String]) {
         calculatorBrain.elements = elements
     }
 
-    func calculusFailed(errorMessage: String) {
-        let alertVC = UIAlertController(title: "Zéro!", message: "Entrez une expression correcte ! Appuiez sur AC et recommencez !", preferredStyle: .alert)
+    func displayErrorMessage(errorMessage: String) {
+        let alertVC = UIAlertController(title: "Erreur", message: errorMessage, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         present(alertVC, animated: true, completion: nil)
     }
@@ -47,16 +43,8 @@ class CalculatorViewController: UIViewController {
         case .success(let result):
             calculusHasCompleted(result: result)
 
-        case .failure(let errorMessage):
-            print("\(errorMessage)")
-            switch errorMessage {
-            case .invalidExpression:
-                calculusFailed(errorMessage: "invalide expression")
-            case .notEnoughElementInExpression:
-                calculusFailed(errorMessage: "not enough elements")
-            case.divideByZero:
-                calculusFailed(errorMessage: "you can't divide by zero")
-            }
+        case .failure(let error):
+            displayErrorMessage(errorMessage: error.message())
         }
     }
 
@@ -86,45 +74,28 @@ class CalculatorViewController: UIViewController {
         textView.text.append(numberText)
     }
 
-    @IBAction func tappedAdditionButton(_ sender: UIButton) {
-        if canAddOperator {
-            textView.text.append("+")
+    func addOperator(operatorToAdd: String) {
+        setCalculusElements(elements: elements)
+        if calculatorBrain.canAddOperator {
+            textView.text.append(operatorToAdd)
         } else {
-            let alertVC = UIAlertController(title: "Zéro!", message: "Un operateur est déja mis ! Appuiez sur AC et recommencez !", preferredStyle: .alert)
-            alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-            self.present(alertVC, animated: true, completion: nil)
+            displayErrorMessage(errorMessage: "Un operateur est déja mis ! Appuiez sur AC et recommencez !")
         }
+    }
+    @IBAction func tappedAdditionButton(_ sender: UIButton) {
+       addOperator(operatorToAdd: " + ")
     }
 
     @IBAction func tappedSubstractionButton(_ sender: UIButton) {
-        if canAddOperator {
-            textView.text.append("-")
-        } else {
-            let alertVC = UIAlertController(title: "Zéro!", message: "Un operateur est déja mis ! Appuiez sur AC et recommencez !", preferredStyle: .alert)
-            alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-            self.present(alertVC, animated: true, completion: nil)
-        }
+        addOperator(operatorToAdd: " - ")
     }
 
     @IBAction func tappedMultiplicationButton(_ sender: UIButton) {
-        if canAddOperator {
-            textView.text.append("*")
-
-        } else {
-            let alertVC = UIAlertController(title: "Zéro!", message: "Un operateur est déja mis ! Appuiez sur AC et recommencez !", preferredStyle: .alert)
-            alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-            self.present(alertVC, animated: true, completion: nil)
-        }
+        addOperator(operatorToAdd: " * ")
     }
 
     @IBAction func tappedDivisionButton(_ sender: UIButton) {
-        if canAddOperator {
-            textView.text.append("÷")
-        } else {
-            let alertVC = UIAlertController(title: "Zéro!", message: "Un operateur est déja mis ! Appuie sur AC et recommence !", preferredStyle: .alert)
-            alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-            self.present(alertVC, animated: true, completion: nil)
-        }
+        addOperator(operatorToAdd: " ÷ ")
     }
 
     @IBAction func tappedEqualButton(_ sender: UIButton) {
