@@ -14,12 +14,29 @@ class CalculatorBrain {
         case invalidExpression
         case divideByZero
         case notEnoughElementInExpression
+
+        func message() -> String {
+            switch self {
+
+            case .invalidExpression:
+               return "Cette expression est invalide"
+            case .divideByZero:
+               return "Il n'est pas possible de diviser par zéro"
+            case .notEnoughElementInExpression:
+               return "Il n'y a pas assez d'élement dans le calcul"
+            }
+
+        }
     }
 
     var elements: [String?] = []
 
     var expressionIsCorrect: Bool {
         return elements.last != "+" && elements.last != "-" && elements.last != "÷" && elements.last != "*"
+    }
+
+    var canAddOperator: Bool {
+       return elements.last != "+" && elements.last != "-" && elements.last != "÷" && elements.last != "*"
     }
 
     var expressionHaveEnoughElement: Bool {
