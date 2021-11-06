@@ -19,11 +19,11 @@ class CalculatorBrain {
             switch self {
 
             case .invalidExpression:
-               return "Cette expression est invalide"
+                return "Cette expression est invalide"
             case .divideByZero:
-               return "Il n'est pas possible de diviser par zéro"
+                return "Il n'est pas possible de diviser par zéro"
             case .notEnoughElementInExpression:
-               return "Il n'y a pas assez d'élement dans le calcul"
+                return "Il n'y a pas assez d'élement dans le calcul"
             }
 
         }
@@ -36,7 +36,7 @@ class CalculatorBrain {
     }
 
     var canAddOperator: Bool {
-       return elements.last != "+" && elements.last != "-" && elements.last != "÷" && elements.last != "*"
+        return elements.last != "+" && elements.last != "-" && elements.last != "÷" && elements.last != "*"
     }
 
     var expressionHaveEnoughElement: Bool {
@@ -68,15 +68,10 @@ class CalculatorBrain {
                 guard let rightElement = elements[index+1], let rightOperand = Float(rightElement) else {
                     return .failure(.invalidExpression)
                 }
-                // it is not possible to divide by zero
-                guard element != "÷" || (element == "÷" && rightOperand != 0) else {
-                    return .failure(.divideByZero)
-                }
-
-                switch element {
-                case "*": processing.append(String(leftOperand * rightOperand))
-                case "÷": processing.append(String(leftOperand / rightOperand))
-                default: fatalError("Unknown operator !")
+                if element == "*" {
+                    processing.append(String(leftOperand * rightOperand))
+                } else if element == "÷" {
+                    processing.append(String(leftOperand / rightOperand))
                 }
                 index += 1
             } else {
@@ -118,19 +113,17 @@ class CalculatorBrain {
             let left = Float(operations[0])!
             let operand = operations[1]
             let right = Float(operations[2])!
+            var result: Float = 0
 
-            let result: Float
-            switch operand {
-            case "+": result = left + right
-            case "-": result = left - right
-
-            default: fatalError("Unknown operator !")
+            if operand == "+" {
+                result = left + right
+            } else if operand == "-" {
+                result = left - right
             }
 
             operations = Array(operations.dropFirst(3))
             operations.insert("\(result)", at: 0)
         }
         return .success(operations.first!)
-
     }
 }
