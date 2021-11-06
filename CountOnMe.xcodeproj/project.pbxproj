@@ -15,7 +15,6 @@
 		1FA43BF3224E569A00F565CB /* CountOnMeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA43BF2224E569A00F565CB /* CountOnMeUITests.swift */; };
 		2712CB4226F9CF5C005292E6 /* CalculatorBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2712CB4126F9CF5C005292E6 /* CalculatorBrain.swift */; };
 		27AF2689270B10E10032A5E5 /* CalculatorBrainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AF2688270B10E10032A5E5 /* CalculatorBrainTests.swift */; };
-		27AF268B270B45B70032A5E5 /* CalculatorViewModelsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AF268A270B45B70032A5E5 /* CalculatorViewModelsTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,7 +49,6 @@
 		1FA43BF4224E569A00F565CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2712CB4126F9CF5C005292E6 /* CalculatorBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorBrain.swift; sourceTree = "<group>"; };
 		27AF2688270B10E10032A5E5 /* CalculatorBrainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorBrainTests.swift; sourceTree = "<group>"; };
-		27AF268A270B45B70032A5E5 /* CalculatorViewModelsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorViewModelsTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,7 +113,6 @@
 			isa = PBXGroup;
 			children = (
 				1FA43BE9224E569A00F565CB /* Info.plist */,
-				278368F8272018C500F82E64 /* ViewModels */,
 				278368F7272018A100F82E64 /* Models */,
 			);
 			path = CountOnMeTests;
@@ -161,14 +158,6 @@
 				27AF2688270B10E10032A5E5 /* CalculatorBrainTests.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		278368F8272018C500F82E64 /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-				27AF268A270B45B70032A5E5 /* CalculatorViewModelsTests.swift */,
-			);
-			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -334,7 +323,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				27AF2689270B10E10032A5E5 /* CalculatorBrainTests.swift in Sources */,
-				27AF268B270B45B70032A5E5 /* CalculatorViewModelsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
