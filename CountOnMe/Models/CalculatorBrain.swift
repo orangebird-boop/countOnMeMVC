@@ -68,16 +68,13 @@ class CalculatorBrain {
                 guard let rightElement = elements[index+1], let rightOperand = Float(rightElement) else {
                     return .failure(.invalidExpression)
                 }
-                // it is not possible to divide by zero
-                guard element != "÷" || (element == "÷" && rightOperand != 0) else {
-                    return .failure(.divideByZero)
+
+                if element == "*" {
+                    processing.append(String(leftOperand * rightOperand))
+                } else if element == "÷" {
+                    processing.append(String(leftOperand / rightOperand))
                 }
 
-                switch element {
-                case "*": processing.append(String(leftOperand * rightOperand))
-                case "÷": processing.append(String(leftOperand / rightOperand))
-                default: fatalError("Unknown operator !")
-                }
                 index += 1
             } else {
                 processing.append(element!)
@@ -119,12 +116,12 @@ class CalculatorBrain {
             let operand = operations[1]
             let right = Float(operations[2])!
 
-            let result: Float
-            switch operand {
-            case "+": result = left + right
-            case "-": result = left - right
+            var result: Float = 0
 
-            default: fatalError("Unknown operator !")
+            if operand == "+" {
+                result = left + right
+            } else if operand == "-" {
+                result = left - right
             }
 
             operations = Array(operations.dropFirst(3))
